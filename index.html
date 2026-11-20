@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0a1a">
+<title>Sentient · Lembar Tugas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0a1a;--bg2:#15123a;--card:rgba(255,255,255,.055);--card2:rgba(255,255,255,.1);
+  --line:rgba(255,255,255,.12);--text:#efebff;--muted:#a9a4cf;--v:#a78bfa;--v2:#7c3aed;
+  --t:#2dd4bf;--amber:#fbbf24;--red:#f87171;--ok:#34d399;--glow:rgba(124,58,237,.35);
+  --shadow:0 12px 32px rgba(0,0,0,.35);--fs:17px;color-scheme:dark;
+  --topbg:rgba(11,10,26,.85);--optbg:rgba(167,139,250,.16);--okbg:rgba(52,211,153,.2);--warnbg:rgba(251,191,36,.2);
+  --thbg:rgba(167,139,250,.18);
+}
+:root[data-theme=light]{
+  --bg:#f4f2ff;--bg2:#ffffff;--card:#ffffff;--card2:#efe9ff;--line:rgba(40,20,90,.12);
+  --text:#1c1838;--muted:#5f5a80;--v:#6d28d9;--v2:#7c3aed;--t:#0f8f84;--amber:#b45309;
+  --red:#dc2626;--ok:#059669;--glow:rgba(124,58,237,.18);--shadow:0 8px 24px rgba(60,30,140,.10);
+  --topbg:rgba(244,242,255,.88);--optbg:rgba(109,40,217,.10);--okbg:rgba(5,150,105,.15);--warnbg:rgba(180,83,9,.15);
+  --thbg:rgba(109,40,217,.10);
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{
+  font-family:Nunito,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);
+  background:var(--bg);min-height:100vh;min-height:100dvh;line-height:1.5;
+  -webkit-text-size-adjust:100%;text-size-adjust:100%;
+}
+body::before{
+  content:"";position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;pointer-events:none;
+  background:
+   radial-gradient(60% 40% at 15% 0%,rgba(124,58,237,.38),transparent 70%),
+   radial-gradient(50% 35% at 100% 10%,rgba(45,212,191,.22),transparent 70%),
+   radial-gradient(70% 50% at 50% 110%,rgba(124,58,237,.18),transparent 70%);
+}
+:root[data-theme=light] body::before{opacity:.45}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 96px;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.hide{display:none!important}
+h1,h2,h3{margin:0;line-height:1.2}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input{font:inherit;color:inherit}
+
+/* ---------- brand ---------- */
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--v2),var(--t));box-shadow:0 6px 18px var(--glow)}
+.logo svg{width:22px;height:22px}
+.brand b{font-weight:900;letter-spacing:.3px;font-size:18px}
+.brand small{display:block;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.iconbtn{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--line)}
+.iconbtn svg{width:18px;height:18px}
+
+/* ---------- cards ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;
+  box-shadow:var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.card+.card{margin-top:14px}
+.hero{margin-top:18px;padding:22px 20px;border-radius:24px;position:relative;overflow:hidden;
+  background:linear-gradient(140deg,rgba(124,58,237,.55),rgba(45,212,191,.35));border:1px solid rgba(255,255,255,.18)}
+:root[data-theme=light] .hero{background:linear-gradient(140deg,#7c3aed,#14b8a6);color:#fff}
+.hero h1{font-size:26px;font-weight:900}
+.hero p{margin:8px 0 0;opacity:.9;font-weight:600}
+.hero .rings{position:absolute;right:-30px;top:-30px;width:150px;height:150px;opacity:.35}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.stat{background:rgba(255,255,255,.14);border-radius:14px;padding:10px;text-align:center}
+.stat b{display:block;font-size:20px;font-weight:900}
+.stat span{font-size:12px;font-weight:700;opacity:.9}
+.label{font-size:12px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.field{margin-bottom:14px}
+.inp{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card2);
+  font-size:17px;font-weight:700;outline:none}
+.inp:focus{border-color:var(--v);box-shadow:0 0 0 3px var(--glow)}
+.seg{display:grid;gap:6px;background:var(--card2);padding:4px;border-radius:14px;border:1px solid var(--line)}
+.seg.c4{grid-template-columns:1fr 1fr 1fr 1.6fr}
+.seg.c2{grid-template-columns:1fr 1fr}
+.seg button{padding:10px 0;border-radius:10px;font-weight:800;color:var(--muted)}
+.seg button.on{background:linear-gradient(135deg,var(--v2),var(--v));color:#fff;box-shadow:0 4px 14px var(--glow)}
+.hint{margin-top:10px;font-size:13.5px;font-weight:700;color:var(--t);min-height:20px}
+.plan{display:grid;gap:6px;margin-top:4px}
+.plan div{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;background:var(--card2);font-weight:700;font-size:14.5px}
+.plan i{font-style:normal;width:24px;height:24px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;
+  background:linear-gradient(135deg,var(--v2),var(--v));color:#fff;flex:none}
+.plan span{color:var(--muted);font-weight:700;margin-left:auto;font-size:12.5px}
+.rules{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.rules li{display:flex;gap:10px;font-size:15px;font-weight:600}
+.rules li i{font-style:normal;width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none;background:var(--card2);font-size:14px}
+.btn{width:100%;padding:16px;border-radius:16px;font-weight:900;font-size:17px;letter-spacing:.2px;
+  background:linear-gradient(135deg,var(--v2),var(--t));color:#fff;box-shadow:0 10px 26px var(--glow);transition:transform .12s}
+.btn:active{transform:scale(.98)}
+.btn[disabled]{opacity:.45;box-shadow:none}
+.btn.ghost{background:var(--card);color:var(--text);border:1px solid var(--line);box-shadow:none}
+.btn.small{padding:12px;font-size:15px}
+.btns{display:grid;gap:10px;margin-top:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.link{display:block;margin:14px auto 0;color:var(--muted);font-weight:800;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.resume{border-color:var(--amber)}
+.resume p{margin:4px 0 12px;font-weight:600;color:var(--muted)}
+.foot{text-align:center;font-size:12px;color:var(--muted);margin-top:22px;font-weight:600}
+
+/* ---------- task top bar ---------- */
+.top{position:-webkit-sticky;position:sticky;top:0;z-index:20;padding:10px 16px;margin:0 -16px;
+  background:var(--topbg);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;gap:12px}
+.ring{position:relative;width:58px;height:58px;flex:none}
+.ring svg{width:58px;height:58px;transform:rotate(-90deg)}
+.ring .bgc{stroke:var(--line)}
+.ring .fg{stroke:var(--t);transition:stroke-dashoffset .3s linear,stroke .3s}
+.ring b{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;font-variant-numeric:tabular-nums}
+.ring.warn .fg{stroke:var(--amber)}
+.ring.hot .fg{stroke:var(--red)}
+.tinfo{flex:1;min-width:0}
+.tinfo .t1{font-weight:900;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tinfo .t2{font-size:12.5px;color:var(--muted);font-weight:700}
+.dots{display:flex;gap:5px;margin-top:6px}
+.dots i{height:6px;flex:1;border-radius:6px;background:var(--line)}
+.dots i.done{background:var(--v)}
+.dots i.now{background:linear-gradient(90deg,var(--v),var(--t));box-shadow:0 0 10px var(--glow)}
+.fsz{display:flex;gap:6px}
+.fsz button{width:34px;height:34px;border-radius:10px;background:var(--card);border:1px solid var(--line);font-weight:900;font-size:13px}
+
+/* ---------- reading ---------- */
+.blockhead{margin:18px 0 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chip{font-size:12px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;padding:5px 10px;border-radius:999px;
+  background:var(--card2);border:1px solid var(--line);color:var(--v)}
+.passage h2{font-size:22px;font-weight:900;margin-bottom:4px}
+.passage .meta{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:12px}
+.passage p{font-size:var(--fs);line-height:1.7;margin:0 0 14px;font-weight:500}
+.passage p:last-child{margin-bottom:0}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:4px 0 14px;border-radius:14px;border:1px solid var(--line)}
+.dt{border-collapse:collapse;width:100%;font-size:calc(var(--fs) - 3px);font-variant-numeric:tabular-nums}
+.dt th{background:var(--thbg);font-weight:900;text-align:center;padding:9px 6px;line-height:1.25}
+.dt td{padding:8px;text-align:center;border-top:1px solid var(--line);font-weight:600}
+.dt td:first-child{font-weight:800;text-align:left;white-space:nowrap}
+.qcard{scroll-margin-top:96px}
+.qn{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
+.qn .no{width:30px;height:30px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:900;
+  background:linear-gradient(135deg,var(--v2),var(--v));color:#fff;font-size:15px}
+.qn .qt{font-size:var(--fs);font-weight:800;line-height:1.5}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;width:100%;padding:12px 14px;border-radius:14px;
+  border:1.5px solid var(--line);background:var(--card2);font-size:calc(var(--fs) - 1px);font-weight:600;transition:.15s}
+.opt .L{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid var(--line);font-size:14px}
+.opt.on{border-color:var(--v);background:var(--optbg);box-shadow:0 0 0 3px var(--glow)}
+.opt.on .L{background:var(--v);border-color:var(--v);color:#fff}
+.pad{margin-top:14px}
+.padbox{position:relative;border-radius:14px;border:1.5px dashed var(--line);background:var(--card2);overflow:hidden}
+.padbox canvas{display:block;width:100%;height:240px;touch-action:none}
+.padbox .ph{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700;font-size:14px;pointer-events:none}
+.padtools{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.padtools button{font-size:13px;font-weight:800;padding:6px 12px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
+.waitnote{margin-top:14px;text-align:center;font-weight:700;color:var(--muted);font-size:14px}
+
+/* ---------- floating pill ---------- */
+.pill{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:25;
+  display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;font-weight:900;font-size:15px;
+  background:linear-gradient(135deg,var(--v2),var(--t));color:#fff;box-shadow:0 12px 30px var(--glow);white-space:nowrap}
+.pill .cnt{background:rgba(255,255,255,.22);padding:2px 9px;border-radius:999px;font-size:13px}
+
+/* ---------- jenuh overlay ---------- */
+.ov{position:fixed;top:0;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;background:rgba(5,4,15,.62);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:fade .2s}
+.sheet{width:100%;max-width:560px;max-height:100%;overflow-y:auto;background:var(--bg2);border:1px solid var(--line);border-bottom:0;
+  border-radius:26px 26px 0 0;padding:20px 16px 20px;padding-bottom:calc(20px + env(safe-area-inset-bottom));animation:up .28s cubic-bezier(.2,.8,.2,1)}
+.sheet .grab{width:44px;height:5px;border-radius:5px;background:var(--line);margin:0 auto 14px}
+.sheet h3{font-size:21px;font-weight:900;text-align:center}
+.sheet .sub{text-align:center;color:var(--muted);font-weight:700;margin:6px 0 14px;font-size:14px}
+.scale{display:grid;gap:8px}
+.sc{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);text-align:left}
+.sc .n{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff;flex:none}
+.sc b{display:block;font-weight:900;font-size:15.5px}
+.sc span{font-size:13px;color:var(--muted);font-weight:600}
+.sc .em{margin-left:auto;font-size:22px}
+.autobar{height:4px;border-radius:4px;background:var(--line);margin-top:14px;overflow:hidden}
+.autobar i{display:block;height:100%;background:var(--t);width:100%;transform-origin:left;transition:transform 1s linear}
+.skip{display:block;margin:12px auto 0;font-weight:800;color:var(--muted);font-size:14px}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* ---------- done ---------- */
+.done-hero{text-align:center;padding:28px 18px}
+.done-hero .big{font-size:58px}
+.done-hero h1{font-size:26px;font-weight:900;margin-top:4px}
+.done-hero p{color:var(--muted);font-weight:700;margin:6px 0 0}
+.opcard h3{font-size:17px;font-weight:900}
+.opcard .who{color:var(--muted);font-weight:700;font-size:14px;margin:4px 0 14px}
+.tbl{width:100%;border-collapse:separate;border-spacing:0 6px}
+.tbl th{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;text-align:left;font-weight:800;padding:0 8px}
+.tbl td{background:var(--card2);padding:10px 8px;font-weight:800;font-variant-numeric:tabular-nums}
+.tbl td:first-child{border-radius:12px 0 0 12px}
+.tbl td:last-child{border-radius:0 12px 12px 0}
+.tbl small{display:block;color:var(--muted);font-weight:700;font-size:11.5px}
+.bar{height:8px;border-radius:8px;background:var(--line);overflow:hidden;min-width:40px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--v),var(--t))}
+.jn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;color:#fff;font-size:13px}
+.acc{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding:14px;border-radius:16px;background:var(--card2)}
+.acc b{font-size:28px;font-weight:900}
+.badge{font-size:12.5px;font-weight:900;padding:6px 10px;border-radius:999px;text-align:center}
+.badge.ok{background:var(--okbg);color:var(--ok)}
+.badge.warn{background:var(--warnbg);color:var(--amber)}
+.toast{position:fixed;left:50%;bottom:24px;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;
+  background:var(--text);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:800;font-size:14px;animation:up .25s}
+.btn.wa{background:#25d366;box-shadow:0 10px 26px rgba(37,211,102,.35)}
+.fb{margin-top:10px;font-weight:700;font-size:14.5px;padding:10px 12px;border-radius:12px;background:var(--card2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= HOME ================= -->
+<section id="home">
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 12h3l2-5 3 10 3-14 3 12 2-3h4"/></svg></div>
+      <div><b>Sentient</b><small>Lembar tugas digital</small></div>
+    </div>
+    <button class="iconbtn" id="themeBtn" aria-label="Ganti tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+
+  <div class="hero">
+    <svg class="rings" viewBox="0 0 100 100" fill="none" stroke="#fff"><circle cx="50" cy="50" r="20"/><circle cx="50" cy="50" r="32"/><circle cx="50" cy="50" r="44"/></svg>
+    <h1>Siap mengerjakan tugas?</h1>
+    <p>Kerjakan dengan santai seperti biasa. Tidak ada nilai yang memengaruhimu.</p>
+    <div class="stats">
+      <div class="stat"><b>5</b><span>blok</span></div>
+      <div class="stat"><b>3′</b><span>per blok</span></div>
+      <div class="stat"><b>15′</b><span>total</span></div>
+    </div>
+  </div>
+
+  <div class="card resume hide" id="resumeCard" style="margin-top:14px">
+    <div class="label" style="color:var(--amber)">Sesi belum selesai</div>
+    <b id="resumeTxt"></b>
+    <p>Waktu tetap berjalan selama halaman ditutup.</p>
+    <div class="two">
+      <button class="btn small" id="resumeBtn">Lanjutkan</button>
+      <button class="btn small ghost" id="discardBtn">Buang</button>
+    </div>
+  </div>
+  <div class="card hide" id="lastCard" style="margin-top:14px">
+    <div class="label">Hasil terakhir</div>
+    <b id="lastTxt"></b>
+    <div class="btns"><button class="btn small ghost" id="lastBtn">Lihat hasil untuk operator</button></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="field">
+      <div class="label">Kode peserta</div>
+      <input class="inp" id="kode" placeholder="mis. P07" autocomplete="off" autocapitalize="characters" maxlength="8">
+    </div>
+    <div class="field">
+      <div class="label">Sesi ke-</div>
+      <div class="seg c4" id="sesiSeg"><button data-v="1">1</button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">Ulang</button></div>
+    </div>
+    <div class="field" style="margin-bottom:0">
+      <div class="label">Urutan blok</div>
+      <div class="seg c2" id="ordSeg"><button data-v="f">Blok 1 → 5</button><button data-v="r">Blok 5 → 1</button></div>
+    </div>
+    <div class="hint" id="hint"></div>
+    <div class="plan hide" id="plan"></div>
+  </div>
+
+  <div class="card">
+    <div class="label">Aturan selama tugas</div>
+    <ul class="rules">
+      <li><i>⏱️</i><span>Tiap blok berjalan 3 menit lalu pindah sendiri. Jawaban di blok lama terkunci.</span></li>
+      <li><i>😌</i><span>Di akhir tiap blok, pilih seberapa jenuh kamu (1 sampai 5), lalu tunjukkan juga dengan jari ke operator.</span></li>
+      <li><i>🤫</i><span>Jangan bicara, jangan buka aplikasi lain, dan jangan menyentuh elektroda.</span></li>
+      <li><i>📵</i><span>Aktifkan mode jangan ganggu supaya notifikasi tidak muncul.</span></li>
+    </ul>
+  </div>
+
+  <div class="btns">
+    <button class="btn" id="startBtn" disabled>Mulai saat operator memberi aba-aba</button>
+  </div>
+  <button class="link" id="practiceBtn">Coba latihan 1 menit dulu</button>
+  <div class="foot">Sentient · EED Kelompok 2 · Teknik Elektro USK</div>
+</section>
+
+<!-- ================= TASK ================= -->
+<section id="task" class="hide">
+  <div class="top">
+    <div class="topin">
+      <div class="ring" id="ring">
+        <svg viewBox="0 0 58 58"><circle class="bgc" cx="29" cy="29" r="25" stroke-width="5" fill="none"/><circle class="fg" id="ringFg" cx="29" cy="29" r="25" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="157.08" stroke-dashoffset="0"/></svg>
+        <b id="ringTxt">3:00</b>
+      </div>
+      <div class="tinfo">
+        <div class="t1" id="tTitle">Blok 1</div>
+        <div class="t2" id="tSub">Total 0:00 / 15:00</div>
+        <div class="dots" id="dots"></div>
+      </div>
+      <div class="fsz"><button id="fsDown" aria-label="Perkecil huruf">A−</button><button id="fsUp" aria-label="Perbesar huruf">A+</button></div>
+    </div>
+  </div>
+  <div id="blockBody"></div>
+</section>
+
+<!-- ================= DONE ================= -->
+<section id="done" class="hide">
+  <div class="card done-hero">
+    <div class="big" id="doneEmoji">🎉</div>
+    <h1 id="doneTitle">Selesai, terima kasih!</h1>
+    <p id="doneSub">Tetap duduk tenang dan serahkan HP ini ke operator.</p>
+  </div>
+  <div class="card opcard" id="opCard">
+    <h3>🧑‍🔬 Untuk operator</h3>
+    <div class="who" id="who"></div>
+    <table class="tbl" id="tbl"></table>
+    <div id="accBox"></div>
+    <div class="btns" id="shareBtns">
+      <button class="btn wa" id="waBtn">Kirim hasil lewat WhatsApp</button>
+      <button class="btn ghost small" id="copyBtn">Salin teks hasil</button>
+    </div>
+  </div>
+  <button class="link" id="newBtn">Mulai sesi baru</button>
+</section>
+
+</div>
+
+<div id="pillWrap"></div>
+<div id="ovWrap"></div>
+
+<script>
+/* =====================================================================
+   DATA SOAL — sama dengan PDF "Lembar_Tugas_Blok1-5" Set 1, 2, 3, dan 4 (Ulang)
+   Blok 1 bacaan populer · Blok 2 bacaan teknis · Blok 3–4 penalaran · Blok 5 literasi data
+   ===================================================================== */
+var TYPE={A:{name:"Membaca",emoji:"📖",meta:"Baca teks berikut, lalu jawab 3 soal."},
+          B:{name:"Penalaran",emoji:"🧩",meta:"Jawab 3 soal berikut. Boleh mencoret-coret di ruang coretan paling bawah."},
+          D:{name:"Literasi data",emoji:"📊",meta:"Baca uraian dan tabel berikut, lalu jawab 3 soal. Boleh mencoret-coret."}};
+
+var SETS={
+"1":{name:"Set 1",blocks:[
+ {type:"A",title:"Petir, Listrik Raksasa dari Langit",text:[
+  "Indonesia termasuk negara dengan jumlah hari badai petir tertinggi di dunia. Petir bermula di dalam awan kumulonimbus yang menjulang tinggi. Di sana butiran es dan air saling bertumbukan dalam arus udara yang kuat. Tumbukan ini memisahkan muatan listrik: bagian atas awan cenderung bermuatan positif, sedangkan bagian bawahnya bermuatan negatif.",
+  "Muatan negatif di dasar awan menarik muatan positif di permukaan tanah, terutama pada benda yang tinggi dan runcing seperti pohon, menara, dan atap. Udara biasanya penghantar listrik yang buruk, tetapi bila beda tegangan antara awan dan tanah mencapai ratusan juta volt, udara akhirnya “jebol”. Terbentuklah saluran bermuatan yang bergerak bertahap ke bawah, lalu disambut kilatan dari tanah. Ketika keduanya bertemu, arus puluhan ribu ampere mengalir dalam waktu sangat singkat.",
+  "Kilat tidak hanya terjadi antara awan dan tanah. Sebagian besar kilat justru terjadi di dalam awan atau antarawan, sehingga tidak berbahaya bagi orang di darat. Hanya sebagian kecil yang menyambar tanah, tetapi jumlah itu sudah cukup untuk menimbulkan korban dan kerusakan setiap tahun, terutama di daerah pertanian yang terbuka.",
+  "Arus sebesar itu memanaskan udara di jalurnya hingga sekitar 30.000 derajat Celsius, lebih panas daripada permukaan matahari. Udara yang memuai secara mendadak menimbulkan gelombang kejut yang kita dengar sebagai guntur. Cahaya kilat sampai ke mata kita hampir seketika, sedangkan bunyi guntur merambat sekitar 340 meter per detik. Dengan menghitung detik antara kilat dan guntur lalu membaginya dengan tiga, kita memperoleh perkiraan jarak petir dalam kilometer.",
+  "Penangkal petir tidak “menolak” petir. Batang logam di puncak bangunan justru menyediakan titik sambaran yang terkendali, lalu kabel tebal menyalurkan arus ke batang pentanahan yang ditanam di dalam tanah. Tanpa jalur ini, arus dapat melompat melalui dinding, pipa, atau kabel listrik dan menyebabkan kebakaran.",
+  "Bagi manusia, tempat paling berbahaya adalah lapangan terbuka, puncak bukit, dan di bawah pohon yang berdiri sendiri. Mobil beratap logam relatif aman karena arus mengalir di permukaan luar kendaraan, bukan karena bannya. Pedoman umum menyarankan masuk ke bangunan atau mobil bila guntur terdengar, dan menunggu sekitar 30 menit setelah guntur terakhir sebelum kembali beraktivitas di luar."],
+  qs:[
+  {q:"Mengapa guntur selalu terdengar sesudah kilat terlihat?",o:["Guntur terjadi beberapa detik setelah kilat padam","Guntur berasal dari awan yang lebih jauh","Cahaya merambat jauh lebih cepat daripada bunyi","Bunyi guntur dipantulkan dulu oleh tanah"]},
+  {q:"Seseorang melihat kilat, lalu mendengar guntur 9 detik kemudian. Perkiraan jarak petir adalah…",o:["sekitar 3 km","sekitar 0,3 km","sekitar 9 km","sekitar 27 km"]},
+  {q:"Menurut teks, mengapa mobil beratap logam relatif aman saat badai petir?",o:["Ban karet mengisolasi mobil dari tanah","Logam pada atap menolak petir","Mobil lebih rendah daripada pohon di sekitarnya","Arus petir mengalir di permukaan luar kendaraan"]}]},
+ {type:"A",title:"Perjalanan Listrik dari Pembangkit ke Rumah",text:[
+  "Saat kita menekan sakelar lampu, listrik yang menyala itu bisa jadi dibangkitkan ratusan kilometer jauhnya. Di pembangkit, turbin yang diputar uap, air, atau gas memutar generator. Generator menghasilkan arus bolak-balik dengan tegangan belasan hingga puluhan ribu volt. Tegangan sebesar itu ternyata belum cukup tinggi untuk dikirim jarak jauh.",
+  "Masalahnya ada pada kabel. Setiap kabel punya hambatan, dan arus yang melewati hambatan menghasilkan panas. Besar energi yang hilang menjadi panas sebanding dengan kuadrat arus. Artinya, bila arus dijadikan setengahnya, panas yang terbuang tinggal seperempat. Untuk mengirim daya yang sama, arus dapat diperkecil dengan menaikkan tegangan, karena daya adalah hasil kali tegangan dan arus. Inilah alasan transformator penaik tegangan dipasang di dekat pembangkit.",
+  "Di Indonesia, saluran transmisi umumnya bertegangan 150 ribu volt (150 kV), dan jalur utama di Jawa memakai 500 kV. Menara baja tinggi di pinggir sawah membawa kabel-kabel ini. Kabelnya tidak dibungkus isolasi; udara di sekelilingnya serta isolator keramik atau kaca pada menara yang mencegah listrik mengalir ke tanah.",
+  "Sesampainya di dekat kota, listrik masuk gardu induk. Di sana transformator penurun tegangan mengubahnya menjadi 20 kV untuk jaringan distribusi yang menyusuri jalan-jalan. Terakhir, transformator yang menempel di tiang menurunkan lagi tegangan menjadi 220 volt sebelum masuk ke rumah melalui meteran.",
+  "Transformator hanya bekerja untuk arus bolak-balik, karena kerjanya bergantung pada medan magnet yang terus berubah. Itulah salah satu alasan arus bolak-balik menang atas arus searah sebagai standar jaringan listrik di awal abad ke-20.",
+  "Seluruh sistem ini harus seimbang setiap detik. Listrik hampir tidak disimpan di jaringan, sehingga daya yang dibangkitkan harus mengikuti daya yang dipakai. Bila pemakaian naik tiba-tiba dan pembangkit terlambat menyesuaikan, frekuensi jaringan yang seharusnya 50 hertz akan turun sedikit. Operator sistem memantau frekuensi ini sebagai tanda keseimbangan. Pemadaman bergilir terjadi ketika pasokan tidak mampu mengejar permintaan dan beban harus dikurangi agar seluruh sistem tidak runtuh."],
+  qs:[
+  {q:"Menurut teks, mengapa tegangan dinaikkan sebelum listrik dikirim jarak jauh?",o:["Agar listrik sampai ke rumah lebih cepat","Agar arus kecil sehingga panas yang terbuang di kabel berkurang","Karena generator hanya mampu menghasilkan 500 kV","Agar transformator di tiang tidak diperlukan lagi"]},
+  {q:"Bila frekuensi jaringan turun sedikit di bawah 50 hertz, hal itu menandakan…",o:["pembangkit menghasilkan listrik berlebih","kabel transmisi 500 kV putus","transformator di tiang rusak","pemakaian listrik lebih besar daripada yang dibangkitkan"]},
+  {q:"Bila arus di saluran transmisi dijadikan sepertiga dari semula, energi yang hilang menjadi panas menjadi…",o:["sepersembilan dari semula","sepertiga dari semula","dua pertiga dari semula","sama seperti semula"]}]},
+ {type:"B",qs:[
+  {q:"Lanjutkan deret: 3, 5, 9, 17, 33, …",o:["49","57","65","66"]},
+  {q:"Semua alat yang memakai baterai litium perlu diisi ulang. Sebagian alat di laboratorium memakai baterai litium. Kesimpulan yang pasti benar adalah…",o:["Semua alat di laboratorium perlu diisi ulang.","Sebagian alat di laboratorium perlu diisi ulang.","Tidak ada alat di laboratorium yang perlu diisi ulang.","Semua alat yang perlu diisi ulang memakai baterai litium."]},
+  {q:"Aturan: pada susunan seri, bila satu lampu dicabut, lampu lain di jalur yang sama ikut padam; pada susunan paralel, tiap lampu punya jalur sendiri. Tiga lampu P, Q, dan R ada dalam satu rangkaian. Bila P dicabut, Q dan R tetap menyala. Bila Q dicabut, R padam tetapi P tetap menyala. Susunan yang sesuai adalah…",o:["Ketiganya disusun seri","Ketiganya disusun paralel","P seri dengan pasangan Q–R yang disusun paralel","P paralel terhadap pasangan Q–R yang disusun seri"]}]},
+ {type:"B",qs:[
+  {q:"Amperemeter : arus listrik = Voltmeter : …",o:["daya listrik","tegangan listrik","hambatan listrik","frekuensi listrik"]},
+  {q:"Dari tiga kabel (merah, hijau, biru), tepat satu yang bertegangan. Ani berkata “Bukan yang merah.” Budi berkata “Yang hijau.” Citra berkata “Bukan yang hijau.” Hanya SATU pendapat yang benar. Kabel mana yang bertegangan?",o:["Merah","Hijau","Biru","Tidak dapat ditentukan"]},
+  {q:"Lampu X berkedip setiap 4 detik dan lampu Y setiap 6 detik. Keduanya berkedip bersamaan pada detik ke-0. Dari detik ke-1 sampai detik ke-60, berapa kali keduanya berkedip bersamaan?",o:["4 kali","6 kali","5 kali","10 kali"]}]},
+ {type:"D",title:"Uji Coba Hemat Listrik di Dua Asrama",text:[
+  "Pengelola kampus ingin mengetahui apakah mengganti lampu lama dengan lampu LED dan menempel stiker pengingat “matikan lampu” dapat menurunkan pemakaian listrik. Pada bulan Maret, Asrama Melati mendapat kedua perlakuan itu sekaligus. Asrama Kenanga tidak mendapat perlakuan apa pun dan dipakai sebagai pembanding. Kedua asrama memiliki 40 kamar dengan jumlah penghuni yang hampir sama. Pemakaian dicatat dari meteran listrik tiap asrama.",
+  "Pada bulan Maret ada libur semester selama dua minggu, dan sebagian penghuni kedua asrama pulang kampung. Anggap libur memengaruhi kedua asrama dengan cara yang serupa."],
+  table:{head:["Asrama","Februari (kWh)","Maret (kWh)"],rows:[["Melati","4.000","3.200"],["Kenanga","4.000","3.600"]]},
+  after:["Kepala Asrama Melati menyimpulkan: “LED dan stiker berhasil menurunkan pemakaian listrik sebesar 20 %.”"],
+  qs:[
+  {q:"Berapa persen penurunan pemakaian listrik Asrama Kenanga dari Februari ke Maret?",o:["4 %","11 %","40 %","10 %"]},
+  {q:"Dengan memperhitungkan Asrama Kenanga sebagai pembanding, perkiraan yang paling masuk akal tentang pengaruh LED dan stiker terhadap pemakaian Asrama Melati adalah…",o:["sekitar 20 %, sesuai kesimpulan kepala asrama","sekitar 10 %","0 %, karena seluruh penurunan disebabkan libur","sekitar 30 %"]},
+  {q:"Dari rancangan uji coba ini, hal apa yang BELUM bisa diketahui?",o:["Apakah pemakaian listrik Asrama Melati turun","Apakah libur ikut menurunkan pemakaian listrik","Mana yang lebih berpengaruh, lampu LED atau stiker pengingat","Berapa pemakaian Asrama Kenanga pada bulan Maret"]}]}
+]},
+
+"2":{name:"Set 2",blocks:[
+ {type:"A",title:"Tarian Lebah, Peta Tanpa Kertas",text:[
+  "Seekor lebah madu pekerja yang menemukan ladang bunga tidak bisa berbicara, tetapi ia mampu memberi tahu ratusan rekannya ke mana harus terbang. Caranya: menari. Ahli biologi Austria, Karl von Frisch, menghabiskan puluhan tahun mempelajari “bahasa” ini dan menerima Hadiah Nobel pada tahun 1973.",
+  "Bila sumber makanan dekat dengan sarang, lebah melakukan tarian bundar: ia berputar-putar di permukaan sisiran sarang, kadang ke kiri, kadang ke kanan. Tarian ini kurang lebih berarti “ada makanan di sekitar sini, carilah”. Lebah lain mencium aroma bunga yang menempel di tubuh penari untuk mengenali jenis bunganya.",
+  "Bila sumber makanan jauh, lebah memakai tarian goyang yang jauh lebih kaya informasi. Ia berjalan lurus sambil menggoyang-goyangkan perutnya, lalu memutar kembali ke titik awal, dan mengulanginya berkali-kali. Arah jalan lurus itu adalah penunjuk arah. Karena sarang gelap dan sisirannya tegak, lebah memakai arah “ke atas” sebagai pengganti arah matahari. Jalan lurus tepat ke atas berarti “terbanglah ke arah matahari”. Jalan lurus 60 derajat ke kanan dari arah atas berarti “terbanglah 60 derajat ke kanan dari arah matahari”.",
+  "Lama goyangan menunjukkan jarak: makin lama lebah bergoyang di jalur lurus, makin jauh letak makanan. Semangat tarian juga menyampaikan mutu sumber makanan; nektar yang manis membuat penari mengulang tariannya lebih banyak.",
+  "Yang mengagumkan, matahari terus bergeser sepanjang hari. Lebah memperhitungkan pergeseran itu, sehingga sudut tarian untuk ladang yang sama pada sore hari berbeda dengan sudut pada pagi hari. Lebah juga tetap dapat menentukan posisi matahari saat langit sebagian berawan dengan memanfaatkan pola cahaya terpolarisasi yang tidak tampak oleh mata manusia.",
+  "Tarian lebah menunjukkan bahwa hewan kecil pun dapat menyampaikan informasi yang rumit dengan aturan sederhana. Para peneliti robotika kini meniru gagasan ini untuk merancang kawanan robot kecil yang saling berbagi informasi tanpa pusat komando."],
+  qs:[
+  {q:"Menurut teks, tarian bundar menyampaikan pesan bahwa…",o:["arah bunga tepat sejajar dengan matahari","sumber makanan berada dekat sarang","jarak bunga dapat dihitung dalam meter","sarang sedang dalam bahaya"]},
+  {q:"Pada tarian goyang, lama lebah bergoyang di jalur lurus menunjukkan…",o:["jenis bunga","manisnya nektar","arah matahari","jarak sumber makanan"]},
+  {q:"Seekor lebah melakukan tarian goyang dengan jalur lurus mengarah tepat ke bawah. Artinya, sumber makanan berada…",o:["searah dengan matahari","90 derajat ke kanan dari matahari","berlawanan arah dengan matahari","tepat di bawah sarang"]}]},
+ {type:"A",title:"Vaksin, Latihan Perang bagi Sistem Kekebalan",text:[
+  "Tubuh kita dijaga sistem kekebalan yang bekerja seperti pasukan keamanan. Saat kuman masuk, sistem ini mengenali bagian kuman yang disebut antigen, biasanya berupa protein di permukaannya. Pengenalan pertama membutuhkan waktu, sering satu sampai dua minggu, dan selama itu kuman sempat berkembang biak dan membuat kita sakit.",
+  "Dua jenis sel berperan penting. Sel B menghasilkan antibodi, protein berbentuk huruf Y yang menempel pada antigen dan menandai kuman untuk dihancurkan. Sel T membantu mengatur serangan dan dapat membunuh sel tubuh yang sudah terinfeksi. Setelah infeksi berakhir, sebagian sel B dan sel T bertahan sebagai sel memori. Bila kuman yang sama datang lagi, sel memori mengenalinya dengan cepat sehingga serangan balik dapat dimulai dalam hitungan hari, sering sebelum kita merasa sakit.",
+  "Vaksin memanfaatkan mekanisme memori itu tanpa membuat kita menjalani penyakit sesungguhnya. Ada beberapa cara membuatnya: memakai kuman yang dilemahkan, kuman yang sudah dimatikan, hanya potongan protein kuman, atau mRNA yang berisi petunjuk agar sel tubuh membuat sendiri protein antigen itu untuk sementara. Semua cara ini memperlihatkan “wajah” kuman kepada sistem kekebalan sehingga sel memori terbentuk.",
+  "Vaksin juga melindungi orang yang tidak dapat divaksin, misalnya bayi yang belum cukup umur. Bila cukup banyak orang kebal, rantai penularan terputus karena kuman sulit menemukan orang baru untuk ditulari. Keadaan ini disebut kekebalan kelompok. Berapa banyak orang yang harus kebal bergantung pada angka R0, yaitu rata-rata jumlah orang yang ditulari oleh satu penderita di tengah masyarakat yang belum kebal. Perkiraan sederhananya: proporsi yang harus kebal = 1 − 1/R0.",
+  "Campak sangat menular, dengan R0 sekitar 12 sampai 18, sehingga lebih dari 90 persen masyarakat perlu kebal. Penyakit dengan R0 lebih rendah membutuhkan cakupan yang lebih kecil. Itulah sebabnya penurunan cakupan imunisasi yang tampak kecil dapat memicu wabah campak kembali."],
+  qs:[
+  {q:"Menurut teks, peran sel memori adalah…",o:["mengenali kuman yang sama dengan cepat saat kuman itu datang lagi","menghasilkan antigen di permukaan kuman","menggantikan fungsi vaksin di dalam tubuh","membunuh semua kuman baru yang belum pernah dikenal"]},
+  {q:"Pernyataan tentang vaksin mRNA yang sesuai dengan teks adalah…",o:["berisi kuman yang dilemahkan","berisi kuman yang sudah dimatikan","memberi petunjuk agar sel tubuh membuat protein antigen untuk sementara","langsung menghasilkan antibodi tanpa melibatkan sistem kekebalan"]},
+  {q:"Suatu penyakit memiliki R0 = 4. Menurut rumus sederhana di teks, proporsi masyarakat yang perlu kebal agar terbentuk kekebalan kelompok adalah…",o:["25 %","40 %","4 %","75 %"]}]},
+ {type:"B",qs:[
+  {q:"Lanjutkan deret: 2, 3, 5, 9, 17, …",o:["25","31","33","34"]},
+  {q:"Tidak ada kucing yang bisa terbang. Semua burung pipit bisa terbang. Kesimpulan yang pasti benar adalah…",o:["Tidak ada burung pipit yang merupakan kucing.","Sebagian kucing adalah burung pipit.","Semua yang bisa terbang adalah burung pipit.","Sebagian burung pipit tidak bisa terbang."]},
+  {q:"Dita lebih tinggi daripada Eka. Fani lebih pendek daripada Eka. Gita lebih tinggi daripada Dita. Hana lebih pendek daripada Dita, tetapi lebih tinggi daripada Eka. Siapa yang berada di urutan ketiga dari yang tertinggi?",o:["Dita","Hana","Eka","Fani"]}]},
+ {type:"B",qs:[
+  {q:"Bab : buku = Episode : …",o:["serial","televisi","sutradara","penonton"]},
+  {q:"Harga sebuah buku naik 20 %, lalu bulan berikutnya turun 20 %. Dibandingkan harga awal, harga akhirnya…",o:["sama dengan harga awal","turun 4 %","naik 4 %","turun 20 %"]},
+  {q:"Pada suatu tahun yang bukan tahun kabisat, tanggal 1 Januari jatuh pada hari Senin. Tanggal 1 Maret tahun itu jatuh pada hari…",o:["Selasa","Rabu","Jumat","Kamis"]}]},
+ {type:"D",title:"Aplikasi Belajar dan IPK",text:[
+  "Sebuah aplikasi belajar diluncurkan di Kampus Cendekia pada awal semester ini. Pemakaiannya sukarela: mahasiswa boleh memilih memakai atau tidak. Di akhir semester, pengembang aplikasi mengumumkan: “Pengguna aktif kami memiliki IPK rata-rata 3,6, jauh di atas rata-rata kampus 3,2. Aplikasi kami terbukti meningkatkan IPK.” Data yang tersedia sebagai berikut."],
+  table:{head:["Kelompok","Jumlah mahasiswa","IPK semester lalu","IPK semester ini"],rows:[["Pengguna aktif","200","3,5","3,6"],["Bukan pengguna","800","3,1","3,1"]]},
+  qs:[
+  {q:"Berapa kenaikan IPK rata-rata pengguna aktif dari semester lalu ke semester ini?",o:["0,1","0,4","0,5","0,3"]},
+  {q:"Fakta manakah yang PALING melemahkan klaim bahwa aplikasi itulah yang membuat IPK penggunanya tinggi?",o:["Aplikasi dipakai oleh 200 mahasiswa","Rata-rata IPK kampus adalah 3,2","Pengguna aktif sudah memiliki IPK lebih tinggi sebelum aplikasi diluncurkan","Jumlah bukan pengguna empat kali jumlah pengguna"]},
+  {q:"Rancangan manakah yang PALING tepat untuk menguji apakah aplikasi itu benar-benar meningkatkan IPK?",o:["Membandingkan IPK pengguna dan bukan pengguna pada semester depan","Mengundi secara acak siapa yang mendapat akses aplikasi, lalu membandingkan perubahan IPK kedua kelompok","Menanyakan kepada pengguna apakah mereka merasa terbantu","Meminta lebih banyak mahasiswa memakai aplikasi"]}]}
+]},
+
+"3":{name:"Set 3",blocks:[
+ {type:"A",title:"Mengapa Langit Berwarna Biru?",text:[
+  "Cahaya matahari tampak putih, padahal sebenarnya campuran semua warna pelangi, dari merah sampai ungu. Setiap warna adalah gelombang cahaya dengan panjang gelombang yang berbeda. Merah memiliki gelombang paling panjang, sedangkan biru dan ungu memiliki gelombang paling pendek.",
+  "Ketika cahaya matahari memasuki atmosfer, ia menabrak molekul-molekul udara, terutama nitrogen dan oksigen, yang ukurannya jauh lebih kecil daripada panjang gelombang cahaya. Molekul sekecil ini menghamburkan cahaya ke segala arah, tetapi tidak sama rata: gelombang pendek dihamburkan jauh lebih kuat daripada gelombang panjang. Cahaya biru dihamburkan beberapa kali lebih banyak daripada cahaya merah. Peristiwa ini disebut hamburan Rayleigh, sesuai nama fisikawan Inggris yang menjelaskannya.",
+  "Akibatnya, ke mana pun kita memandang langit, cahaya biru yang dihamburkan datang dari segala arah, sehingga langit tampak biru. Ungu sebenarnya dihamburkan lebih kuat lagi, tetapi matahari memancarkan lebih sedikit cahaya ungu, sebagian ungu diserap di lapisan atas atmosfer, dan mata manusia kurang peka terhadap ungu.",
+  "Saat matahari terbit atau terbenam, cahayanya harus menembus lapisan udara yang jauh lebih tebal sebelum sampai ke mata kita. Sepanjang jalan, sebagian besar cahaya biru sudah dihamburkan ke arah lain. Yang tersisa terutama cahaya jingga dan merah, sehingga langit di sekitar matahari tampak kemerahan.",
+  "Awan berwarna putih karena alasan yang berbeda. Butiran air di awan jauh lebih besar daripada molekul udara, sehingga menghamburkan semua warna hampir sama kuat. Campuran semua warna itu kembali tampak putih. Awan yang sangat tebal tampak kelabu karena cahaya sulit menembusnya.",
+  "Di planet lain, warna langit berbeda. Langit Mars pada siang hari tampak kekuningan kecokelatan karena debu halus di atmosfernya, sedangkan saat matahari terbenam langit di sekitar matahari justru tampak kebiruan. Warna langit ternyata bergantung pada apa yang mengapung di udaranya."],
+  qs:[
+  {q:"Menurut teks, warna cahaya yang PALING SEDIKIT dihamburkan oleh molekul udara adalah…",o:["biru","ungu","hijau","merah"]},
+  {q:"Langit di sekitar matahari terbenam tampak kemerahan karena…",o:["cahaya menembus udara lebih tebal sehingga biru sudah banyak dihamburkan","matahari memancarkan lebih banyak cahaya merah pada sore hari","awan memantulkan warna laut","molekul udara membesar pada sore hari"]},
+  {q:"Mengapa awan tampak putih, bukan biru?",o:["Awan memantulkan cahaya bulan","Awan terlalu tinggi untuk menghamburkan cahaya","Butiran air yang besar menghamburkan semua warna hampir sama kuat","Awan menyerap seluruh cahaya biru"]}]},
+ {type:"A",title:"Inflasi, Saat Uang Kehilangan Tenaga",text:[
+  "Uang Rp50.000 yang lima tahun lalu cukup untuk makan beberapa kali kini mungkin hanya cukup untuk sekali atau dua kali. Kenaikan harga barang dan jasa secara umum dan terus-menerus disebut inflasi. Inflasi tidak berarti semua harga naik bersamaan; sebagian bisa turun, tetapi rata-ratanya naik.",
+  "Di Indonesia, inflasi diukur oleh Badan Pusat Statistik dengan Indeks Harga Konsumen (IHK). IHK dihitung dari harga sekumpulan barang dan jasa yang biasa dibeli rumah tangga, seperti beras, sewa rumah, transportasi, dan pendidikan. Bila IHK tahun ini 5 persen lebih tinggi daripada tahun lalu, inflasi tahunan adalah 5 persen.",
+  "Penyebab inflasi bermacam-macam. Bila permintaan masyarakat naik lebih cepat daripada kemampuan produsen menyediakan barang, harga terdorong naik. Bila biaya produksi naik, misalnya harga bahan bakar, produsen meneruskannya ke harga jual. Harapan juga berperan: bila orang yakin harga akan naik, mereka membeli lebih awal dan pedagang menaikkan harga lebih dulu.",
+  "Inflasi membedakan nilai nominal dan nilai riil. Nilai nominal adalah angka yang tertulis; nilai riil adalah daya beli sebenarnya. Secara kasar, kenaikan riil sama dengan kenaikan nominal dikurangi inflasi. Tabungan dengan bunga 5 persen per tahun di tengah inflasi 3 persen hanya menambah daya beli sekitar 2 persen. Bila inflasi lebih tinggi daripada bunga, daya beli tabungan justru berkurang meskipun angkanya bertambah.",
+  "Inflasi yang rendah dan stabil dianggap sehat bagi perekonomian, sedangkan inflasi yang tinggi menyulitkan perencanaan dan merugikan orang berpenghasilan tetap. Bank Indonesia bertugas menjaga inflasi tetap dalam sasaran. Salah satu alatnya adalah suku bunga acuan. Menaikkan suku bunga membuat pinjaman lebih mahal dan menabung lebih menarik, sehingga belanja masyarakat melambat dan tekanan kenaikan harga berkurang."],
+  qs:[
+  {q:"Menurut teks, Indeks Harga Konsumen (IHK) dihitung dari…",o:["harga emas dan saham","harga sekumpulan barang dan jasa yang biasa dibeli rumah tangga","jumlah uang yang dicetak setiap tahun","gaji rata-rata pegawai"]},
+  {q:"Menurut teks, Bank Indonesia menaikkan suku bunga acuan untuk…",o:["menambah jumlah pinjaman masyarakat","menaikkan harga barang","mempercepat belanja masyarakat","memperlambat belanja agar tekanan kenaikan harga berkurang"]},
+  {q:"Gaji Sinta naik 4 %, sedangkan inflasi tahun itu 6 %. Menurut teks, daya beli gaji Sinta…",o:["turun sekitar 2 %","naik sekitar 4 %","naik sekitar 10 %","tetap karena gajinya naik"]}]},
+ {type:"B",qs:[
+  {q:"Lanjutkan deret: 5, 7, 11, 19, 35, …",o:["51","63","67","70"]},
+  {q:"Setiap kali hujan turun, jalan di depan kampus basah. Hari ini jalan di depan kampus tidak basah. Kesimpulan yang pasti benar adalah…",o:["Hari ini hujan turun.","Hari ini hujan tidak turun.","Jalan di depan kampus sedang diperbaiki.","Belum dapat dipastikan apakah hujan turun."]},
+  {q:"Lima orang antre di loket. Tono paling depan. Vera tepat di belakang Tono. Rudi tepat di belakang Sari. Umi tidak berada paling belakang. Siapa yang berada paling belakang?",o:["Rudi","Sari","Umi","Vera"]}]},
+ {type:"B",qs:[
+  {q:"Termometer : suhu = Odometer : …",o:["kecepatan","jarak tempuh","bahan bakar","waktu tempuh"]},
+  {q:"Sebuah pekerjaan selesai dalam 12 hari bila dikerjakan 6 orang. Bila dikerjakan 8 orang dengan kecepatan kerja yang sama, pekerjaan itu selesai dalam…",o:["8 hari","10 hari","16 hari","9 hari"]},
+  {q:"Di dalam laci gelap ada 3 kaus kaki merah dan 3 kaus kaki biru yang tercampur. Berapa kaus kaki yang minimal harus diambil tanpa melihat agar PASTI mendapat sepasang yang warnanya sama?",o:["2","4","3","6"]}]},
+ {type:"D",title:"Tes Cepat yang Akurat, tetapi…",text:[
+  "Sebuah klinik memakai tes cepat untuk suatu penyakit. Dari pengalaman sebelumnya diketahui tiga hal. Pertama, penyakit ini diderita oleh 1 dari 100 orang yang datang untuk dites. Kedua, pada orang yang benar-benar sakit, tes memberi hasil positif pada 90 % kasus. Ketiga, pada orang yang sehat, tes keliru memberi hasil positif pada 10 % kasus.",
+  "Suatu hari 1.000 orang datang untuk dites. Tabel di bawah boleh dipakai sebagai bantuan (isi di ruang coretan)."],
+  table:{head:["","Hasil positif","Hasil negatif","Jumlah"],rows:[["Sakit","…","…","…"],["Sehat","…","…","…"],["Jumlah","…","…","1.000"]]},
+  qs:[
+  {q:"Berapa orang sakit yang hasil tesnya positif?",o:["9","90","10","1"]},
+  {q:"Berapa orang sehat yang hasil tesnya positif?",o:["100","10","99","891"]},
+  {q:"Seseorang dari kelompok itu mendapat hasil positif. Peluang ia benar-benar sakit kira-kira…",o:["90 %","50 %","10 %","8 %"]}]}
+]},
+
+"4":{name:"Set 4 (Ulang)",blocks:[
+ {type:"A",title:"Gurita, Si Pintar Berlengan Delapan",text:[
+  "Gurita sering disebut hewan tak bertulang belakang yang paling cerdas. Di akuarium, gurita tercatat mampu membuka tutup toples berulir, keluar dari wadahnya pada malam hari, bahkan mengenali penjaga tertentu dan menyemprotkan air hanya kepada orang yang tidak disukainya.",
+  "Tubuh gurita sangat berbeda dari tubuh kita. Ia memiliki tiga jantung: dua memompa darah ke insang, satu memompa darah ke seluruh tubuh. Darahnya berwarna biru karena pengangkut oksigennya adalah hemosianin, protein yang mengandung tembaga, bukan hemoglobin yang mengandung besi seperti pada manusia.",
+  "Gurita memiliki sekitar 500 juta sel saraf, kira-kira sebanyak anjing. Namun, sekitar dua pertiga sel saraf itu tidak berada di kepala, melainkan tersebar di kedelapan lengannya. Setiap lengan dapat meraba, mencicipi, dan bereaksi sendiri tanpa menunggu perintah dari otak pusat. Lengan yang terpotong bahkan masih bisa meraih makanan selama beberapa waktu.",
+  "Kemampuan gurita yang paling terkenal adalah menyamar. Kulitnya berisi ribuan kantong pigmen kecil bernama kromatofor yang dapat dibuka dan ditutup oleh otot dalam sepersekian detik. Gurita juga dapat mengubah tekstur kulit agar tampak seperti batu atau rumput laut. Anehnya, mata gurita hanya memiliki satu jenis sel penerima warna, sehingga kebanyakan peneliti menduga gurita buta warna. Bagaimana ia bisa mencocokkan warna lingkungannya masih diteliti; salah satu dugaan menyebutkan bahwa kulitnya sendiri ikut peka terhadap cahaya.",
+  "Di balik kecerdasannya, hidup gurita sangat singkat. Kebanyakan jenis gurita hanya hidup satu sampai dua tahun. Induk betina umumnya menjaga telurnya tanpa makan selama berminggu-minggu hingga berbulan-bulan, lalu mati tidak lama setelah telur menetas. Karena itu gurita muda harus belajar sendiri tanpa diajari induknya, sesuatu yang membuat kecerdasannya semakin mengagumkan."],
+  qs:[
+  {q:"Menurut teks, darah gurita berwarna biru karena…",o:["darahnya mengandung lebih banyak zat besi","pengangkut oksigennya mengandung tembaga","gurita memiliki tiga jantung","air laut masuk ke pembuluh darahnya"]},
+  {q:"Menurut teks, sebagian besar sel saraf gurita berada di…",o:["kepala","jantung","kulit","lengan"]},
+  {q:"Pernyataan manakah yang PALING didukung teks?",o:["Gurita kemungkinan buta warna, tetapi tetap mampu menyamarkan warna tubuhnya","Gurita meniru warna lingkungan karena matanya dapat membedakan banyak warna","Gurita muda diajari cara menyamar oleh induknya","Lengan gurita tidak dapat bergerak tanpa perintah dari otak pusat"]}]},
+ {type:"A",title:"GPS, Menghitung Posisi dari Waktu",text:[
+  "Saat kita membuka peta di ponsel, titik biru menunjukkan posisi kita dengan ketelitian beberapa meter. Ponsel mengetahuinya dari sinyal satelit Sistem Pemosisi Global (GPS) yang mengorbit sekitar 20.200 kilometer di atas Bumi. Paling sedikit 24 satelit GPS aktif disusun sedemikian rupa sehingga dari hampir semua tempat di Bumi, beberapa satelit selalu ada di langit.",
+  "Setiap satelit membawa jam atom yang sangat akurat dan terus memancarkan sinyal berisi posisinya serta waktu pengiriman sinyal. Penerima di ponsel hanya mendengarkan; ia tidak mengirim apa pun ke satelit. Dengan membandingkan waktu sinyal dikirim dan waktu sinyal diterima, penerima mengetahui berapa lama sinyal berada di perjalanan. Karena sinyal merambat secepat cahaya, sekitar 300.000 kilometer per detik, lama perjalanan itu dapat diubah menjadi jarak.",
+  "Jarak ke satu satelit hanya memberi tahu bahwa kita berada di suatu titik pada permukaan bola di sekeliling satelit itu. Jarak ke tiga satelit mempersempit kemungkinan menjadi satu titik. Masalahnya, jam di ponsel jauh kurang akurat daripada jam atom. Kesalahan sepersejuta detik saja (satu mikrodetik) membuat jarak meleset sekitar 300 meter. Karena itu penerima memakai satelit keempat: tiga satelit untuk menentukan posisi, satu lagi untuk menghitung dan mengoreksi kesalahan jam penerima itu sendiri.",
+  "Para perancang GPS juga harus memperhitungkan teori relativitas Einstein. Karena satelit bergerak cepat dan berada jauh dari gravitasi Bumi, jam di satelit berjalan sedikit lebih cepat daripada jam di permukaan, sekitar 38 mikrodetik per hari. Tanpa koreksi, posisi yang dihitung akan bergeser beberapa kilometer setiap hari.",
+  "Di kota dengan gedung tinggi, sinyal dapat terpantul dinding sebelum sampai ke ponsel, sehingga jaraknya terhitung lebih panjang dan posisi melompat-lompat. Ponsel modern membantu dengan menggabungkan GPS dengan satelit sistem lain, sinyal Wi-Fi, dan sensor gerak di dalam ponsel."],
+  qs:[
+  {q:"Menurut teks, saat menentukan posisi, ponsel…",o:["mengirim sinyal ke satelit lalu menunggu balasan","mengirim posisinya ke jam atom di satelit","hanya menerima sinyal dari satelit","memerlukan sambungan internet ke satelit"]},
+  {q:"Mengapa penerima GPS memerlukan satelit keempat?",o:["Untuk mengoreksi kesalahan jam di penerima","Karena salah satu satelit selalu rusak","Untuk mengirim peta ke ponsel","Untuk mengoreksi efek relativitas pada jam satelit"]},
+  {q:"Bila jam penerima keliru 10 nanodetik (seperseratus mikrodetik), jarak yang dihitung meleset sekitar…",o:["300 m","30 m","0,3 m","3 m"]}]},
+ {type:"B",qs:[
+  {q:"Lanjutkan deret: 1, 2, 6, 24, 120, …",o:["240","600","720","840"]},
+  {q:"Sebagian anggota UKM musik adalah mahasiswa FISIP. Semua mahasiswa FISIP wajib mengikuti mata kuliah statistik. Kesimpulan yang pasti benar adalah…",o:["Semua anggota UKM musik wajib mengikuti mata kuliah statistik.","Sebagian anggota UKM musik wajib mengikuti mata kuliah statistik.","Semua yang wajib mengikuti mata kuliah statistik adalah anggota UKM musik.","Tidak ada anggota UKM musik yang wajib mengikuti mata kuliah statistik."]},
+  {q:"Empat rumah berderet bernomor 1 sampai 4 dari kiri. Rumah merah tepat di sebelah kiri rumah hijau. Rumah biru tidak berada di ujung. Rumah kuning bernomor 4. Rumah merah bernomor…",o:["1","2","3","4"]}]},
+ {type:"B",qs:[
+  {q:"Penulis : naskah = Arsitek : …",o:["semen","tukang bangunan","kontraktor","denah bangunan"]},
+  {q:"Sebuah kereta berangkat pukul 07.45 dan tiba pukul 10.15 setelah menempuh 200 km. Berapa kecepatan rata-ratanya?",o:["80 km/jam","75 km/jam","85 km/jam","100 km/jam"]},
+  {q:"Berapa besar sudut terkecil antara jarum jam dan jarum menit pada pukul 3.30?",o:["90°","75°","60°","105°"]}]},
+ {type:"D",title:"Iklan Lowongan dan Rata-rata Gaji",text:[
+  "Sebuah usaha kecil memasang iklan lowongan: “Rata-rata gaji di tempat kami Rp6,45 juta per bulan!” Seorang calon pelamar meminta rincian gaji semua orang di usaha itu, termasuk pemiliknya, dan mendapat tabel berikut."],
+  table:{head:["Jabatan","Jumlah orang","Gaji per orang (juta Rp/bulan)"],rows:[["Karyawan","3","3,0"],["Karyawan","2","3,5"],["Karyawan","2","4,0"],["Karyawan","1","4,5"],["Karyawan","1","5,0"],["Pemilik","1","31,0"]]},
+  qs:[
+  {q:"Berapa rata-rata gaji 9 karyawan saja (tanpa pemilik)?",o:["Rp6,45 juta","Rp3,5 juta","Rp4,0 juta","sekitar Rp3,7 juta"]},
+  {q:"Bila gaji ke-10 orang diurutkan dari terkecil, berapa nilai tengahnya (median)?",o:["Rp3,5 juta","Rp3,75 juta","Rp4,0 juta","Rp6,45 juta"]},
+  {q:"Mengapa angka Rp6,45 juta di iklan dapat menyesatkan calon karyawan?",o:["Karena median selalu lebih besar daripada rata-rata","Karena hitungan rata-rata di iklan itu salah","Karena gaji pemilik yang jauh lebih tinggi menarik rata-rata ke atas, sehingga tidak mewakili gaji karyawan pada umumnya","Karena jumlah orangnya terlalu sedikit untuk dihitung rata-ratanya"]}]}
+]},
+
+"L":{name:"Latihan",blocks:[
+ {type:"B",qs:[{q:"Contoh soal: lanjutkan deret 1, 3, 5, 7, …",o:["8","9","10","11"]}]}
+]}
+};
+// kunci jawaban (disandikan ringan supaya tidak langsung terbaca dari sumber halaman)
+var K_ENC={"1":"KHJ.HKI.KIJ.JHI.JIK","2":"JKI.KJH.IHJ.KIH.IJH","3":"JHK.HKI.HIJ.JKI.KJH","4":"HKI.KHJ.HIJ.IHK.JIK","L":"I"};
+function keyOf(s){return K_ENC[s].split(".").map(function(x){return x.split("").map(function(c){return "ABCD".indexOf(String.fromCharCode(c.charCodeAt(0)-7))}).reverse()})}
+
+var SCALE=[
+ {n:1,b:"Sangat segar",s:"Fokus penuh, mudah menyerap",e:"😄",c:"#10b981"},
+ {n:2,b:"Cukup segar",s:"Masih nyaman mengikuti",e:"🙂",c:"#22c55e"},
+ {n:3,b:"Biasa / mulai lelah",s:"Fokus mulai berkurang",e:"😐",c:"#eab308"},
+ {n:4,b:"Jenuh",s:"Sulit menyerap isi",e:"😩",c:"#f97316"},
+ {n:5,b:"Sangat jenuh",s:"Ingin berhenti",e:"😵",c:"#ef4444"}];
+
+/* ===================== STATE ===================== */
+var FAST=/cepat/.test(location.hash);
+var LS="sentient_tugas_v2", LS_LAST="sentient_tugas_last_v2", LS_UI="sentient_ui";
+var S=null, cur=-1, timer=null, ovOpen=false, pendingFinish=false, wake=null, closeOv=null;
+function $(id){return document.getElementById(id)}
+function rd(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function wr(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function rm(k){try{localStorage.removeItem(k)}catch(e){}}
+function save(){if(S&&!S.practice)wr(S.done?LS_LAST:LS,S)}
+function nb(){return S.order.length}
+function bs(){return S.practice?60:(FAST?20:180)}
+function blk(p){return SETS[S.set].blocks[S.order[p]]}
+function fmt(s){s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+":"+("0"+(s%60)).slice(-2)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function toast(m){var d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(function(){d.remove()},1800)}
+function setLabel(s){return s===4?"Set 4 (Ulang)":"Set "+s}
+function ordLabel(o){return o==="r"?"5→1":"1→5"}
+function dateStr(t,o){try{return new Date(t).toLocaleString("id-ID",o)}catch(e){return new Date(t).toString()}}
+
+/* ===================== UI PREFS ===================== */
+var UI=rd(LS_UI)||{};
+function applyUI(){
+  var light=false;try{light=matchMedia("(prefers-color-scheme: light)").matches}catch(e){}
+  var th=UI.theme||(light?"light":"dark");
+  document.documentElement.setAttribute("data-theme",th);
+  document.querySelector('meta[name=theme-color]').content=th==="light"?"#f4f2ff":"#0b0a1a";
+  document.documentElement.style.setProperty("--fs",(UI.fs||17)+"px");
+}
+applyUI();
+$("themeBtn").onclick=function(){UI.theme=document.documentElement.getAttribute("data-theme")==="light"?"dark":"light";wr(LS_UI,UI);applyUI()};
+$("fsUp").onclick=function(){UI.fs=Math.min(22,(UI.fs||17)+1);wr(LS_UI,UI);applyUI()};
+$("fsDown").onclick=function(){UI.fs=Math.max(14,(UI.fs||17)-1);wr(LS_UI,UI);applyUI()};
+
+/* ===================== HOME ===================== */
+var form={kode:"",sesi:null,ord:null,ordManual:false};
+function segPaint(id,v){var bs_=document.querySelectorAll("#"+id+" button");for(var i=0;i<bs_.length;i++)bs_[i].classList.toggle("on",bs_[i].getAttribute("data-v")===String(v))}
+function refresh(){
+  var m=form.kode.match(/\d+/), parts=[];
+  if(m&&!form.ordManual){form.ord=parseInt(m[0],10)%2===1?"f":"r";segPaint("ordSeg",form.ord)}
+  if(form.sesi){parts.push(setLabel(form.sesi)+(form.sesi===4?" untuk sesi ulang":" untuk sesi "+form.sesi))}
+  if(m&&form.ord)parts.push("urutan "+ordLabel(form.ord)+(form.ordManual?" (diatur manual)":" (peserta "+(parseInt(m[0],10)%2?"ganjil":"genap")+")"));
+  $("hint").textContent=parts.length?"✨ "+parts.join(" · "):"";
+  if(form.sesi&&form.ord){
+    var order=form.ord==="r"?[4,3,2,1,0]:[0,1,2,3,4], B=SETS[form.sesi].blocks;
+    $("plan").innerHTML=order.map(function(b,p){var T=TYPE[B[b].type];return "<div><i>"+(p+1)+"</i>"+T.emoji+" "+T.name+"<span>Blok "+(b+1)+" · "+(p*3)+"–"+(p*3+3)+" mnt</span></div>"}).join("");
+    $("plan").classList.remove("hide");
+  } else $("plan").classList.add("hide");
+  $("startBtn").disabled=!(form.kode.trim()&&form.sesi&&form.ord);
+}
+$("kode").oninput=function(e){form.kode=e.target.value.toUpperCase().replace(/\s/g,"");e.target.value=form.kode;refresh()};
+(function(){
+  var a=document.querySelectorAll("#sesiSeg button");for(var i=0;i<a.length;i++)a[i].onclick=function(){form.sesi=+this.getAttribute("data-v");segPaint("sesiSeg",form.sesi);refresh()};
+  var b=document.querySelectorAll("#ordSeg button");for(var j=0;j<b.length;j++)b[j].onclick=function(){form.ord=this.getAttribute("data-v");form.ordManual=true;segPaint("ordSeg",form.ord);refresh()};
+})();
+$("startBtn").onclick=function(){
+  S={kode:form.kode.trim(),sesi:form.sesi,set:String(form.sesi),ord:form.ord,order:form.ord==="r"?[4,3,2,1,0]:[0,1,2,3,4],
+     start:Date.now(),ans:{},jenuh:[null,null,null,null,null],done:false};
+  save();runTask();
+};
+$("practiceBtn").onclick=function(){S={kode:"LATIHAN",sesi:0,set:"L",ord:"f",order:[0],start:Date.now(),ans:{},jenuh:[null],practice:true};runTask()};
+$("resumeBtn").onclick=function(){S=rd(LS);if(S)runTask();else initHome()};
+$("discardBtn").onclick=function(){if(confirm("Buang sesi yang belum selesai? Jawabannya akan hilang.")){rm(LS);initHome()}};
+$("lastBtn").onclick=function(){S=rd(LS_LAST);if(S)showDone()};
+$("newBtn").onclick=function(){S=null;initHome();scrollTo(0,0)};
+
+function initHome(){
+  show("home");
+  var r=rd(LS);
+  if(r&&!r.done){
+    var el=(Date.now()-r.start)/1000, p=Math.min(5,Math.floor(el/180)+1);
+    $("resumeTxt").textContent=r.kode+" · "+setLabel(r.sesi)+" · urutan "+ordLabel(r.ord)+(el<900?" · sedang di blok ke-"+p:" · waktu sudah habis");
+    $("resumeCard").classList.remove("hide");
+  } else $("resumeCard").classList.add("hide");
+  var l=rd(LS_LAST);
+  if(l){$("lastTxt").textContent=l.kode+" · "+setLabel(l.sesi)+" · "+dateStr(l.start,{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});$("lastCard").classList.remove("hide")}
+  else $("lastCard").classList.add("hide");
+}
+function show(id){["home","task","done"].forEach(function(s){$(s).classList.toggle("hide",s!==id)});if(id!=="task")$("pillWrap").innerHTML=""}
+
+/* ===================== TASK ENGINE ===================== */
+function runTask(){
+  show("task");cur=-1;pendingFinish=false;ovOpen=false;closeOv=null;$("ovWrap").innerHTML="";
+  var h="";for(var i=0;i<nb();i++)h+="<i></i>";$("dots").innerHTML=h;
+  keepAwake();
+  clearInterval(timer);timer=setInterval(tick,250);tick();
+}
+function tick(){
+  if(!S)return;
+  var el=(Date.now()-S.start)/1000, p=Math.floor(el/bs());
+  if(p!==cur){
+    if(cur>=0&&p>cur)askJenuh(cur);
+    if(p>=nb()){finish();return}
+    cur=p;renderBlock(p);
+  }
+  var left=bs()-(el-p*bs());
+  $("ringTxt").textContent=fmt(left);
+  $("ringFg").style.strokeDashoffset=(157.08*(1-left/bs())).toFixed(2);
+  var r=$("ring");r.classList.toggle("warn",left<=60&&left>20);r.classList.toggle("hot",left<=20);
+  $("tSub").textContent="Total "+fmt(el)+" / "+fmt(nb()*bs());
+}
+function tableHtml(t){
+  return '<div class="tw"><table class="dt"><tr>'+t.head.map(function(x){return "<th>"+esc(x)+"</th>"}).join("")+"</tr>"+
+    t.rows.map(function(r){return "<tr>"+r.map(function(x){return "<td>"+esc(x)+"</td>"}).join("")+"</tr>"}).join("")+"</table></div>";
+}
+function renderBlock(p){
+  var B=blk(p), T=TYPE[B.type], b=S.order[p];
+  $("tTitle").textContent=(S.practice?"Latihan":"Blok "+(p+1)+" dari "+nb())+" · "+T.name;
+  var ds=$("dots").children;for(var i=0;i<ds.length;i++)ds[i].className=i<p?"done":i===p?"now":"";
+  var h='<div class="blockhead"><span class="chip">'+(S.practice?"Latihan":"Blok "+(p+1))+'</span><span class="chip" style="color:var(--t)">'+T.emoji+" "+T.name+"</span></div>";
+  if(B.text){
+    h+='<div class="card passage"><h2>'+esc(B.title)+'</h2><div class="meta">'+T.meta+"</div>"+
+      B.text.map(function(x){return "<p>"+esc(x)+"</p>"}).join("")+
+      (B.table?tableHtml(B.table):"")+
+      (B.after?B.after.map(function(x){return "<p>"+esc(x)+"</p>"}).join(""):"")+"</div>";
+  } else {
+    h+='<div class="card" style="font-weight:700;color:var(--muted)">'+(S.practice?"Pilih satu jawaban. Di akhir latihan kamu akan diminta memilih skor jenuh.":T.meta)+"</div>";
+  }
+  var a=S.ans[b]||[];
+  B.qs.forEach(function(q,qi){
+    h+='<div class="card qcard" id="q'+qi+'"><div class="qn"><div class="no">'+(qi+1)+'</div><div class="qt">'+esc(q.q)+'</div></div><div class="opts">'+
+      q.o.map(function(o,oi){return '<button class="opt'+(a[qi]===oi?" on":"")+'" data-q="'+qi+'" data-o="'+oi+'"><span class="L">'+"ABCD"[oi]+"</span><span>"+esc(o)+"</span></button>"}).join("")+"</div></div>";
+  });
+  if(B.type!=="A"&&!S.practice)h+='<div class="card pad"><div class="padtools"><div class="label" style="margin:0">Ruang coretan</div><button id="padClr">Hapus</button></div><div class="padbox"><canvas id="pad"></canvas><div class="ph" id="padPh">Coret di sini dengan jari ✍️</div></div></div>';
+  h+='<div class="waitnote" id="waitNote"></div>';
+  $("blockBody").innerHTML=h;
+  try{scrollTo({top:0,behavior:"auto"})}catch(e){scrollTo(0,0)}
+  var os=document.querySelectorAll(".opt");
+  for(var j=0;j<os.length;j++)os[j].onclick=function(){pick(p,+this.getAttribute("data-q"),+this.getAttribute("data-o"))};
+  if($("pad"))initPad();
+  updatePill();
+}
+function pick(p,qi,oi){
+  if(p!==cur)return;
+  var b=S.order[p];
+  S.ans[b]=S.ans[b]||[];S.ans[b][qi]=oi;save();
+  var os=document.querySelectorAll('.opt[data-q="'+qi+'"]');
+  for(var i=0;i<os.length;i++)os[i].classList.toggle("on",+os[i].getAttribute("data-o")===oi);
+  try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}
+  updatePill();
+}
+function updatePill(){
+  var w=$("pillWrap");
+  if(!S||cur<0||cur>=nb()){w.innerHTML="";return}
+  var B=blk(cur), a=S.ans[S.order[cur]]||[], n=0, next=-1;
+  B.qs.forEach(function(_,i){if(a[i]!=null)n++;else if(next<0)next=i});
+  var label,target=null;
+  if(n===B.qs.length){label="Semua terjawab ✓";if($("waitNote"))$("waitNote").textContent="Sudah selesai? Periksa lagi jawabanmu. Blok berikutnya mulai otomatis.";}
+  else {label=B.text&&n===0?"Ke soal ↓":"Soal "+(next+1)+" ↓";target="q"+next;if($("waitNote"))$("waitNote").textContent="";}
+  w.innerHTML='<button class="pill" id="pill"><span>'+label+'</span><span class="cnt">'+n+"/"+B.qs.length+"</span></button>";
+  $("pill").onclick=function(){if(target&&$(target))$(target).scrollIntoView({behavior:"smooth",block:"start"})};
+}
+
+/* ---------- ruang coretan ---------- */
+function initPad(){
+  var c=$("pad"),ctx=c.getContext("2d"),drawing=false,last=null;
+  var r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=r.width*d;c.height=r.height*d;ctx.scale(d,d);
+  ctx.lineCap="round";ctx.lineJoin="round";ctx.lineWidth=2.4;ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--v").trim()||"#a78bfa";
+  function pt(e){var b=c.getBoundingClientRect();return{x:e.clientX-b.left,y:e.clientY-b.top}}
+  function startD(e){drawing=true;last=pt(e);$("padPh").style.display="none"}
+  function moveD(e){if(!drawing)return;var q=pt(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(q.x,q.y);ctx.stroke();last=q}
+  if(window.PointerEvent){
+    c.onpointerdown=function(e){startD(e);try{c.setPointerCapture(e.pointerId)}catch(_){}};
+    c.onpointermove=moveD;c.onpointerup=c.onpointercancel=function(){drawing=false};
+  } else {
+    c.addEventListener("touchstart",function(e){e.preventDefault();startD(e.touches[0])},{passive:false});
+    c.addEventListener("touchmove",function(e){e.preventDefault();moveD(e.touches[0])},{passive:false});
+    c.addEventListener("touchend",function(){drawing=false});
+  }
+  $("padClr").onclick=function(){ctx.clearRect(0,0,c.width,c.height);$("padPh").style.display=""};
+}
+
+/* ---------- skala jenuh ---------- */
+function askJenuh(k){
+  if(closeOv)closeOv(null,true);
+  ovOpen=true;
+  var AUTO=Math.min(25,bs()-2),left=AUTO,iv=null;
+  var isLast=k>=nb()-1;
+  $("ovWrap").innerHTML='<div class="ov"><div class="sheet"><div class="grab"></div>'+
+    "<h3>"+(S.practice?"Latihan":"Blok "+(k+1))+" selesai 👏</h3>"+
+    '<div class="sub">'+(isLast?"Ini blok terakhir.":"Blok "+(k+2)+" sudah mulai berjalan.")+" Seberapa jenuh kamu <b>sekarang</b>?<br>Tunjukkan juga angkanya dengan jari ke operator.</div>"+
+    '<div class="scale">'+SCALE.map(function(s){return '<button class="sc" data-n="'+s.n+'"><div class="n" style="background:'+s.c+'">'+s.n+"</div><div><b>"+s.b+"</b><span>"+s.s+'</span></div><div class="em">'+s.e+"</div></button>"}).join("")+"</div>"+
+    '<div class="autobar"><i id="abar"></i></div><button class="skip" id="skipJ">Lewati</button></div></div>';
+  function close(v,replaced){
+    clearInterval(iv);closeOv=null;S.jenuh[k]=v;save();ovOpen=false;$("ovWrap").innerHTML="";
+    if(replaced)return;
+    try{v!=null&&navigator.vibrate&&navigator.vibrate(12)}catch(e){}
+    if(pendingFinish)showDone();
+  }
+  closeOv=close;
+  var scs=document.querySelectorAll(".sc");for(var i=0;i<scs.length;i++)scs[i].onclick=function(){close(+this.getAttribute("data-n"))};
+  $("skipJ").onclick=function(){close(null)};
+  iv=setInterval(function(){left--;var a=$("abar");if(a)a.style.transform="scaleX("+Math.max(0,left/AUTO)+")";if(left<=0)close(null)},1000);
+}
+
+function finish(){
+  clearInterval(timer);timer=null;
+  S.done=true;S.end=Date.now();
+  if(!S.practice){wr(LS_LAST,S);rm(LS)}
+  releaseAwake();
+  $("pillWrap").innerHTML="";
+  if(ovOpen)pendingFinish=true;else showDone();
+}
+
+/* ===================== HASIL ===================== */
+function result(){
+  var key=keyOf(S.set), B=SETS[S.set].blocks, perBlock=[], tot=0, totQ=0;
+  for(var b=0;b<B.length;b++){
+    var a=S.ans[b]||[], c=0;
+    key[b].forEach(function(k,i){if(a[i]===k)c++});
+    tot+=c;totQ+=key[b].length;
+    perBlock.push({b:b,c:c,n:key[b].length,type:B[b].type,a:key[b].map(function(_,i){return a[i]==null?"-":"ABCD"[a[i]]}).join("")});
+  }
+  var rows=S.order.map(function(b,p){return{p:p,b:b,c:perBlock[b].c,n:perBlock[b].n,type:perBlock[b].type,j:S.jenuh[p]}});
+  return{perBlock:perBlock,rows:rows,tot:tot,totQ:totQ};
+}
+function showDone(){
+  show("done");scrollTo(0,0);
+  var R=result();
+  if(S.practice){
+    $("doneEmoji").textContent="🧪";$("doneTitle").textContent="Latihan selesai";
+    $("doneSub").textContent="Begitulah alurnya. Sesi sungguhan berisi 5 blok × 3 menit.";
+  } else {
+    $("doneEmoji").textContent="🎉";$("doneTitle").textContent="Selesai, terima kasih!";
+    $("doneSub").textContent="Tetap duduk tenang dan serahkan HP ini ke operator.";
+  }
+  $("who").textContent=S.practice?"Mode latihan (tidak disimpan)":
+    S.kode+" · "+(S.sesi===4?"Sesi ulang":"Sesi "+S.sesi)+" · "+setLabel(S.sesi)+" · urutan "+ordLabel(S.ord)+" · "+dateStr(S.start,{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+  var h="<tr><th>Ke-</th><th>Blok soal</th><th>Benar</th><th></th><th>Jenuh</th></tr>";
+  R.rows.forEach(function(r){
+    var sc=null;SCALE.forEach(function(s){if(s.n===r.j)sc=s});
+    h+="<tr><td>"+(r.p+1)+"</td><td>Blok "+(r.b+1)+"<small>"+TYPE[r.type].name+"</small></td><td>"+r.c+"/"+r.n+'</td><td style="width:22%"><div class="bar"><i style="width:'+(r.c/r.n*100)+'%"></i></div></td>'+
+      "<td>"+(sc?'<span class="jn" style="background:'+sc.c+'">'+r.j+"</span>":'<span style="color:var(--muted)">N</span>')+"</td></tr>";
+  });
+  $("tbl").innerHTML=h;
+  var pc=Math.round(R.tot/R.totQ*100),inBand=pc>=50&&pc<=70;
+  $("accBox").innerHTML='<div class="acc"><div><div class="label" style="margin:0">Akurasi</div><b>'+pc+' %</b> <span style="color:var(--muted);font-weight:700">('+R.tot+"/"+R.totQ+")</span></div>"+
+    (S.practice?"":'<span class="badge '+(inBand?"ok":"warn")+'">'+(inBand?"Masuk sasaran 50–70 %":"Di luar sasaran 50–70 %")+"</span>")+"</div>";
+  if(S.practice){
+    var k=keyOf("L")[0][0],a=(S.ans[0]||[])[0];
+    $("accBox").innerHTML+='<div class="fb">'+(a===k?"✅ Benar!":"Jawaban yang benar: "+"ABCD"[k]+" (9).")+" Di sesi sungguhan, benar-salah tidak ditampilkan.</div>";
+  }
+  $("shareBtns").classList.toggle("hide",!!S.practice);
+}
+function resultText(){
+  var R=result();
+  var L=["*SENTIENT · Hasil Lembar Tugas*",
+   "Peserta: "+S.kode+" · "+(S.sesi===4?"Sesi ulang":"Sesi "+S.sesi)+" · "+setLabel(S.sesi)+" · urutan "+ordLabel(S.ord),
+   "Mulai: "+dateStr(S.start,{weekday:"short",day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}),
+   "Benar per blok soal (Blok 1–5, isi ke formulir): "+R.perBlock.map(function(x){return x.c}).join(" · "),
+   "Total: "+R.tot+"/"+R.totQ+" = "+Math.round(R.tot/R.totQ*100)+" %",
+   "Skor jenuh per 3 menit (HP): "+R.rows.map(function(r){return r.j==null?"N":r.j}).join(" · "),
+   "Urutan dikerjakan: "+S.order.map(function(b){return "B"+(b+1)}).join(" → "),
+   "Jawaban: "+R.perBlock.map(function(x){return "B"+(x.b+1)+" "+x.a}).join(" | ")];
+  if(S.sesi===4)L.push("Catatan: sesi ulang, Set 4");
+  return L.join("\n");
+}
+$("waBtn").onclick=function(){location.href="https://wa.me/?text="+encodeURIComponent(resultText())};
+$("copyBtn").onclick=function(){
+  var t=resultText();
+  function fallback(){var ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();
+    var ok=false;try{ok=document.execCommand("copy")}catch(_){}ta.remove();if(ok)toast("Hasil disalin ✓");else prompt("Salin teks ini:",t)}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){toast("Hasil disalin ✓")},fallback);else fallback();
+};
+
+/* ===================== lain-lain ===================== */
+function keepAwake(){try{if("wakeLock" in navigator)navigator.wakeLock.request("screen").then(function(w){wake=w},function(){})}catch(e){}}
+function releaseAwake(){try{wake&&wake.release()}catch(e){}wake=null}
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"&&timer)keepAwake()});
+window.addEventListener("beforeunload",function(e){if(timer&&S&&!S.practice){e.preventDefault();e.returnValue=""}});
+
+initHome();
+</script>
+</body>
+</html>
