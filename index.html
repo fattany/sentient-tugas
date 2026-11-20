@@ -311,6 +311,7 @@ input{font:inherit;color:inherit}
     <h3>🧑‍🔬 Untuk operator</h3>
     <div class="who" id="who"></div>
     <table class="tbl" id="tbl"></table>
+    <div class="fb" id="formNote">📝 Isi kolom "jumlah benar tiap blok" di aplikasi dari atas ke bawah mengikuti kolom <b>Ke-</b> (urutan waktu), bukan nomor blok soal.</div>
     <div id="accBox"></div>
     <div class="btns" id="shareBtns">
       <button class="btn wa" id="waBtn">Kirim hasil lewat WhatsApp</button>
@@ -751,16 +752,18 @@ function showDone(){
     $("accBox").innerHTML+='<div class="fb">'+(a===k?"✅ Benar!":"Jawaban yang benar: "+"ABCD"[k]+" (9).")+" Di sesi sungguhan, benar-salah tidak ditampilkan.</div>";
   }
   $("shareBtns").classList.toggle("hide",!!S.practice);
+  $("formNote").classList.toggle("hide",!!S.practice);
 }
 function resultText(){
   var R=result();
   var L=["*SENTIENT · Hasil Lembar Tugas*",
    "Peserta: "+S.kode+" · "+(S.sesi===4?"Sesi ulang":"Sesi "+S.sesi)+" · "+setLabel(S.sesi)+" · urutan "+ordLabel(S.ord),
    "Mulai: "+dateStr(S.start,{weekday:"short",day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}),
-   "Benar per blok soal (Blok 1–5, isi ke formulir): "+R.perBlock.map(function(x){return x.c}).join(" · "),
+   "*Isi ke formulir aplikasi* (benar per blok waktu ke-1 s.d. ke-5): "+R.rows.map(function(r){return r.c}).join(" · "),
+   "Skor jenuh per blok waktu (HP): "+R.rows.map(function(r){return r.j==null?"N":r.j}).join(" · "),
    "Total: "+R.tot+"/"+R.totQ+" = "+Math.round(R.tot/R.totQ*100)+" %",
-   "Skor jenuh per 3 menit (HP): "+R.rows.map(function(r){return r.j==null?"N":r.j}).join(" · "),
-   "Urutan dikerjakan: "+S.order.map(function(b){return "B"+(b+1)}).join(" → "),
+   "Urutan soal dikerjakan: "+S.order.map(function(b){return "B"+(b+1)}).join(" → "),
+   "Rincian per nomor blok soal: "+R.perBlock.map(function(x){return "B"+(x.b+1)+" "+x.c+"/"+x.n}).join(" · "),
    "Jawaban: "+R.perBlock.map(function(x){return "B"+(x.b+1)+" "+x.a}).join(" | ")];
   if(S.sesi===4)L.push("Catatan: sesi ulang, Set 4");
   return L.join("\n");
